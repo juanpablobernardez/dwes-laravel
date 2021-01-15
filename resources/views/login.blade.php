@@ -9,6 +9,7 @@
                 <label for="usuario">Nombre</label>
                 <input type="text" class="form-control" placeholder="Usuario" name="usuario" id="usuario">
             </div>
+
             @error('usuario')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>

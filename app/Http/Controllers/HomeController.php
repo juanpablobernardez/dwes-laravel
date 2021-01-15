@@ -3,16 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Session;
-
+use Illuminate\Support\Facades\Auth;
+use App\Helpers\UserHelper;
 
 
 class HomeController extends Controller
 {
-    public function __construct()
-    {
+    public function __construct(){
 
-        $this->middleware('auth.mid');
+        $this->middleware('authMid');
     }
 
     /**
@@ -20,10 +19,12 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index(){
-        $rol = Session::get('rol');
+    public function index($rol, $id){
+
+        $user = UserHelper::getUser($id,$rol);
         return view('home', [
-            'rol' => $rol
+            'rol' => $rol,
+            'user' => $user
         ]);
     }
 }

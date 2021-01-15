@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\AuthMiddleware;
+use App\Http\Middleware\ProfesorMiddleware;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,9 +19,20 @@ Route::get('/', function () {
     return view('login');
 });
 
+// Rutas sin autenticación
 Route::get('/login', [App\Http\Controllers\LoginController::class, 'showLoginForm'])->name('login');
-Route::post('/auth', [App\Http\Controllers\LoginController::class, 'auth'])->name('auth');
-Route::get('/logout', [App\Http\Controllers\LoginController::class, 'logout'])->name('logout');
+Route::post('/login', [App\Http\Controllers\LoginController::class, 'auth'])->name('auth');
 
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Rutas para usuario autenticado
+Route::middleware([AuthMiddleware::class])->group(function () {
+    Route::get('/logout', [App\Http\Controllers\LoginController::class, 'logout'])->name('logout');
+    Route::get('/home/{rol}/{id}', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+});
+
+//Rutas para profesor
+Route::middleware([ProfesorMiddleware::class])->group(function () {
+    Route::get('/{rol}/{id}/listar-alumnos', [App\Http\Controllers\AlumnoController::class, 'index'])->name('listar-alumnos');
+    //Route::get('/home/{rol}/{id}', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+});
+

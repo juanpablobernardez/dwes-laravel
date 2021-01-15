@@ -8,8 +8,10 @@ use Illuminate\Support\Facades\Auth;
 use Session;
 
 
-class AuthMiddleware
+class ProfesorMiddleware
 {
+    // Comprueba que el usuario identificado sea un profesor
+
     /**
      * Handle an incoming request.
      *
@@ -20,12 +22,16 @@ class AuthMiddleware
     public function handle(Request $request, Closure $next){
 
         $rol = Session::get('rol');
-        $id = $request->user() ? $request->user()->id : 0;
-        $routeRol = $request->route('rol');
-        $routeId = $request->route('id');
 
-        if($id==$routeId && $rol==$routeRol) {
-            return $next($request);
+        if($rol=='profesor'){
+            $id = $request->user() ? $request->user()->id : 0;
+            $routeRol = $request->route('rol');
+            $routeId = $request->route('id');
+            if($id==$routeId  && $rol==$routeRol) {
+                return $next($request);
+            }else{
+                return redirect('/');
+            }
         }else{
             return redirect('/');
         }

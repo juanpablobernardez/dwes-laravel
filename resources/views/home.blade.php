@@ -1,10 +1,13 @@
 @extends('layouts.base')
 
-@section('content')
-<div class="row mt-3">
-    <div class="col">
-        <h1>{{ $rol }}</h1>
+@section('navbar')
+    @if({{ session()->get('name') }}=='alumno')
+        @include('includes.alumno.navbar')
+    @endif
 
-    </div>
-</div>
+    @if($rol=='profesor')
+        @include('includes.profesor.navbar')
+    @endif
 @stop
+
+

@@ -20,19 +20,23 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-<h1>Base</h1>
+
+    <div class="page-header">
+        <h1>Mini séneca del IES Al-Andalus</h1>
+    </div>
+    <div class="container">
     @section('navbar')
     <a href="{{ route('logout')}}">Logout</a>
     @show
-
-
+    </div>
     <div class="container">
         @yield('content')
+
+
     </div>
-
-
     @section('footer')
         Aquí el footer
     @show
+
 </body>
 </html>

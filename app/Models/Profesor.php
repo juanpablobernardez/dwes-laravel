@@ -38,6 +38,8 @@ class Profesor extends Authenticatable
     protected $primaryKey = 'id';
     protected $table = 'ies_profesor';
 
+
+
     public function getAuthPassword(){
         return $this->pass;
     }

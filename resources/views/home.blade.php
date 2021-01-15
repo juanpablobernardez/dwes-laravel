@@ -1,7 +1,7 @@
 @extends('layouts.base')
 
 @section('navbar')
-    @if({{ session()->get('name') }}=='alumno')
+    @if($rol=='alumno')
         @include('includes.alumno.navbar')
     @endif
 

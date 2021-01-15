@@ -23,7 +23,7 @@ class Profesor extends Authenticatable
         'nombre',
         'apellidos',
         'email',
-        'tutor_curso',
+        'curso',
     ];
 
     /**

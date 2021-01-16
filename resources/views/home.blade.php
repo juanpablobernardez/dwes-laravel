@@ -1,11 +1,11 @@
 @extends('layouts.base')
 
 @section('navbar')
-    @if($rol=='alumno')
+    @if(session()->get('rol')=='alumno')
         @include('includes.alumno.navbar')
     @endif
 
-    @if($rol=='profesor')
+    @if(session()->get('rol')=='profesor')
         @include('includes.profesor.navbar')
     @endif
 @stop

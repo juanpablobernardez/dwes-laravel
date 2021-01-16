@@ -1,5 +1,6 @@
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">{{ $user->nombre}} {{ $user->apellidos}}</a>
+  <a class="navbar-brand" href="#">{{ Auth::guard('profesor')->user()->nombre }} {{ Auth::guard('profesor')->user()->apellidos }}</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -10,8 +11,8 @@
           Alumnos
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="{{ route('listar-alumnos', [$rol, $user->id ]) }}">Listar</a>
-          <a class="dropdown-item" href="#">Alta</a>
+          <a class="dropdown-item" href="{{ route('alumnos') }}">Listar</a>
+          <a class="dropdown-item" href="{{ route('alta-alumno') }}">Alta</a>
           <a class="dropdown-item" href="#">Baja</a>
         </div>
       </li>

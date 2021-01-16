@@ -23,7 +23,17 @@ class ProfesorMiddleware
 
         $rol = Session::get('rol');
 
-        if($rol=='profesor'){
+        if($rol && $rol == 'profesor'){
+            config(['auth.defaults.guard' => $rol]);
+            if($request->user()){
+                return $next($request);
+            }else{
+                return redirect('/');
+            }
+        }
+        return redirect('/');
+
+        /* if($rol=='profesor'){
             $id = $request->user() ? $request->user()->id : 0;
             $routeRol = $request->route('rol');
             $routeId = $request->route('id');
@@ -34,7 +44,7 @@ class ProfesorMiddleware
             }
         }else{
             return redirect('/');
-        }
+        } */
 
     }
 }

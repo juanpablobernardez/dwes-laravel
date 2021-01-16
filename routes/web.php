@@ -27,12 +27,12 @@ Route::post('/login', [App\Http\Controllers\LoginController::class, 'auth'])->na
 //Rutas para usuario autenticado
 Route::middleware([AuthMiddleware::class])->group(function () {
     Route::get('/logout', [App\Http\Controllers\LoginController::class, 'logout'])->name('logout');
-    Route::get('/home/{rol}/{id}', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });
 
 //Rutas para profesor
 Route::middleware([ProfesorMiddleware::class])->group(function () {
-    Route::get('/{rol}/{id}/listar-alumnos', [App\Http\Controllers\AlumnoController::class, 'index'])->name('listar-alumnos');
-    //Route::get('/home/{rol}/{id}', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-});
+    Route::get('/listar-alumnos', [App\Http\Controllers\AlumnoController::class, 'index'])->name('alumnos');
+    Route::get('/alta-alumno', [App\Http\Controllers\AlumnoController::class, 'create'])->name('alta-alumno');});
 
+Route::get('/alumnos', [App\Http\Controllers\AlumnoController::class, 'list'])->name('tabla-alumnos');

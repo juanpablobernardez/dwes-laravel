@@ -16,9 +16,11 @@ class LoginController extends Controller
 
     public function auth(Request $request){
 
-        /* $validator = $this->validate($request, [
+        $validator = Validator::make($request->all(), [
             'usuario' => 'required',
-            'pass' => 'required']); */
+            'pass' => 'required']);
+
+        $validator->validate();
 
         /* if ($validate->fails()) {
             var_dump($validate->errors());die();
@@ -38,12 +40,13 @@ class LoginController extends Controller
         ])->first();
 
         if($alumno){
+            config(['auth.defaults.guard' => 'alumno']);
             Auth::login($alumno);
             $request->session()->put('rol', 'alumno');
             return redirect()
-                        ->route('home', [
+                        ->route('home'/* , [
                                     'id' => $alumno->id,
-                                    'rol' => 'alumno' ]);
+                                    'rol' => 'alumno' ] */);
 
         }else{
             $profesor = Profesor::where([
@@ -52,20 +55,20 @@ class LoginController extends Controller
             ])->first();
 
             if($profesor){
+                config(['auth.defaults.guard' => 'profesor']);
                 Auth::login($profesor);
                 $request->session()->put('rol', 'profesor');
-               return redirect()
-                        ->route('home', [
+                return redirect()
+                        ->route('home'/* , [
                                     'id' => $profesor->id,
-                                    'rol' => 'profesor']);
+                                    'rol' => 'profesor'] */);
             }
 
         }
 
-        /* return view('error-login'); */
 
         return back()->withErrors([
-            'usuario' => 'Credenciales incorrectas',
+            'login' => 'Credenciales incorrectas',
         ]);
 
     }
